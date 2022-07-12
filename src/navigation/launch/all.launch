@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- Robot pose -->
+  <arg name="x" default="-2.0"/>
+  <arg name="y" default="1.0"/>
+  <arg name="z" default="0"/>
+  <arg name="roll" default="0"/>
+  <arg name="pitch" default="0"/>
+  <arg name="yaw" default="0"/>
+
+  <!-- Find my robot Description-->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find alpha)/urdf/alpha.xacro'"/>
+
+  <!-- Spawn My Robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+        args="-urdf -param robot_description -model alpha 
+              -x $(arg x) -y $(arg y) -z $(arg z)
+              -R $(arg roll) -P $(arg pitch) -Y $(arg yaw)"/>
+
+  <!-- rviz -->
+  <node pkg="rviz" type="rviz" name="rviz" required="true"
+        args="-d $(find alpha)/rviz/alpha.rviz"/>
+  <!-- World File -->
+  <arg name="world_file" default="$(find alpha)/worlds/turtlebot3_house.world"/>
+
+  <!-- Launch Gazebo World -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="use_sim_time" value="true"/>
+    <arg name="debug" value="false"/>
+    <arg name="gui" value="true" />
+    <arg name="world_name" value="$(arg world_file)"/>
+  </include>
+
+  <!--amcl-->
+  <include file="$(find navigation)/launch/amcl.launch"/>  
+
+  <!-- move_base -->
+  <include file="$(find navigation)/launch/move_base.launch"/>
+
+  <node name= "joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+      <param name= "use gui" value="false"/>
+  </node>
+     
+  <node name= "robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+  <!-- <node pkg="alpha" type="battery_state_pub2.py" name="battery_state_publisher" required="true"
+        args="-d $(find alpha)/scripts/battery_state_pub.rviz"/> -->
+
+
+</launch>

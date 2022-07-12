@@ -1,0 +1,15 @@
+<launch>
+
+  <!--gmapping -->
+  <include file="$(find navigation)/launch/gmapping.launch"/>  
+
+  <!-- move_base -->
+  <include file="$(find navigation)/launch/move_base.launch"/>
+
+  <node name= "joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+      <param name= "use gui" value="false"/>
+  </node>
+     
+  <node name= "robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  
+</launch>
