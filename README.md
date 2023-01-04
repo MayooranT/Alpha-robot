@@ -1,4 +1,7 @@
 # Alpha
+
+This is a custom made simple robot, easy to run and even easy to understand. This little guy is capable of reaching a simple goal given in RViz, localize itself in the map and can be teleoperated by giving velocity commands.
+
 ## FOLDER ARCHITECTURE
 
 The workspace is constructed in the below mentioned way. 
