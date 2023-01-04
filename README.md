@@ -156,7 +156,7 @@ A separate launch file is created (amcl.launch) to specify required arguments an
 1. First of all clone this repository to your local workspace package level. 
 
     ```sh
-    git clone https://gitlab.com/arimac-robotics/core-software/intern_projects/mayooran_entc18/alpha/alpha_navigation.git
+    git clone https://github.com/MayooranT/Alpha-robot.git
     ```
 
     _You should see some .sh files alongside with src_ 
